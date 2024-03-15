@@ -18,7 +18,6 @@ function handleImageUpload(event) {
         // Simulate saving image to image folder (client-side only)
         saveImageToFolder(imageSrc, imagePath);
       };
-  
       reader.readAsDataURL(files[i]);
     }
   }

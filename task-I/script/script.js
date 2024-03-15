@@ -43,7 +43,7 @@ function validateForm() {
 
 
     // Validate description input
-    if (descriptionInput.value.length > 500) {
+    if (descriptionInput.value.length > 100) {
         document.getElementById("disc-error-msg").innerHTML = " Description can be maximum 50 characters";
         return false;
     } else if (descriptionInput.value == "") {
