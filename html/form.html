@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Demo</title>
+</head>
+
+<body>
+
+    <h1>Student Form</h1>
+    <form action="#" method="get">
+        <label for="username">Username :</label>
+        <input type="text" name="username" id="username" required>
+        <br>
+
+
+        <label for="password">Password :</label>
+        <input type="password" name="password" id="password" required>
+        <br>
+
+
+        <label for="email">Email :</label>
+        <input type="email" name="email" id="email" required>
+        <br>
+
+
+        <label for="phone">Phone :</label>
+        <input type="text" name="phone" id="phone" required>
+        <br>
+
+
+        <label for="address">Address :</label>
+        <textarea name="address" id="address" cols="30" rows="5" required></textarea>
+        <br>
+
+
+        <label for="gender">Gender :</label>
+        <input type="radio" name="gender" id="gender" value="male">Male
+        <input type="radio" name="gender" id="gender" value="Female">Female
+        <br>
+
+        <fieldset>
+            <legend>Hobby</legend>
+            <label for="cricket">Cricket</label>
+            <input type="checkbox" id="cricket" name="cricket" value="cricket" />
+            <label for="vollyball">Vollyball</label>
+            <input type="checkbox" id="vollyball" name="vollyball" value="vollyball" />
+            <label for="hockey">Hockey</label>
+            <input type="checkbox" id="hockey" name="hockey" value="hockey" />
+        </fieldset>
+
+
+
+        <!-- <label for="hobby">Hobby :</label><br> -->
+        <label for="subject">Subject List</label>
+        <select name="subject" id="subject">
+            <option value="0">--------------</option>
+            <option value="1">english</option>
+            <option value="2">hindi</option>
+            <option value="3">gujrati</option>
+        </select><br><br>
+
+
+
+        <label for="fileupload">File Upload</label>
+        <input type="file" name="fileupload" id="fileupload">
+
+        <br><br>
+
+        <label for="color">Color</label>
+        <input type="color" name="color" id="color">
+        <br><br>
+
+        <label for="datein">Date</label>
+        <input type="date" name="datein" id="datein">
+
+
+        <br><br>
+        <label for="datetimeboth">Date Time Both</label>
+        <input type="datetime-local" name="datetimeboth" id="datetimeboth">
+
+        <br><br>
+        <input type="button" value="Click Here" onclick="alert('Your record Inserted')">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>

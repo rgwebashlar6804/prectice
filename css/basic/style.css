@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
+}
+body{
+    color: #ccc;
+}
+h1{
+    color: blueviolet;
+    color: transparent;
+}
+h1:hover{
+    color: aquamarine;
+}
+.para{
+    color: green;
+}
+#btn{
+    background-color:brown;
+    color: white;
+    font-weight: bold;
+}
+#btn:hover{
+    background-color:white;
+    color: brown;
+    font-weight: bold;
+}

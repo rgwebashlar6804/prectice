@@ -1,0 +1,63 @@
+/* @import url(./Poppins-SemiBold.ttf); */
+@font-face {
+    font-family: ronak;
+    src: url(./NotoSansJP-VariableFont_wght.ttf);
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --background-color:#005550;
+    --heading-color:mediumvioletred;
+
+}
+
+body{
+    background-color:var(--background-color) ;
+    font-family: 'ronak',sans-serif;
+    background-attachment:fixed;
+}
+h1{
+    background-color: var(--heading-color);
+}
+h1:hover{
+    background-color: var(--background-color);
+}
+input[type="text"]{
+    /* height: 40px; */
+    height: 4rem;
+    width: 300px;
+    margin-left: 50px;
+    color: pink;
+    font-size: 22px;
+    background-color: black;
+    background-image: url('../good-morning.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+input[type="text"]::selection{
+    color: black;
+    background-color: pink;
+}
+input[type="text"]:hover{
+    height: 33px;
+    width: 380px;
+}
+.flex{
+    display: flex;
+}
+
+.box1{
+    height: 400px;
+    width: 400px;
+    background-color: #c0450f;
+    border: 10px solid yellow;
+    border-top-color: beige;
+    border-top-style:double;
+    background-image: linear-gradient(#005550,white,grey,yellow,pink,cyan,maroon);
+    border-radius: 50%;
+    flex-direction: row;
+    
+}

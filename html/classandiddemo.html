@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Id</title>
+    <script>
+        let viewdate = () =>{
+            let x = document.getElementById("dob").value;
+            document.getElementById('demo').innerHTML = x;
+        }
+    </script>
+</head>
+<body>
+    Name: <input type="text" placeholder="Enter Name:">
+    <input type="date" id="dob">
+    <button onclick="viewdate()">Click here</button>
+    <br>
+    <h2 id="demo"> </h2> <br>
+    <!-- <iframe src="https://www.javatpoint.com/html-iframes" height="800" width="1200  "></iframe>  -->
+    <canvas id="mycanva" width="200" height="100" style="border:2px solid; border-radius: 10px;"></canvas>
+</body>
+</html>

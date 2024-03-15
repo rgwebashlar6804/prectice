@@ -1,0 +1,19 @@
+html, body {
+    margin: 0px;
+    padding: 0px;
+      border: 0px;
+}
+
+ul li{
+   display: inline; 
+   padding: 10px;
+}
+h1{
+    text-align: center;
+}
+a{
+    text-decoration: none;
+    color: blueviolet;
+    font-style: italic;
+    font-size: 22px;
+}
