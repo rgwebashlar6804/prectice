@@ -1,4 +1,4 @@
-
+let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
 function validateForm() {
     // Get references to the form elements
     let nameInput = document.getElementById("name");
@@ -78,7 +78,6 @@ function validateForm() {
         document.getElementById("image-error-msg").innerHTML = " Please attach an image that is smaller than 1024KB";
         image.value = "";
         return false;
-        //comment
     }
     else {
         document.getElementById("image-error-msg").innerHTML = "";
@@ -87,7 +86,7 @@ function validateForm() {
 }
 //show data
 function showData() {
-    let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
+    // let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
     let html = "";
     if (productList.length === 0) {
         // Display an image if the productList array is empty
@@ -103,8 +102,8 @@ function showData() {
     } else {
         productList.forEach(function (element) {
             // Truncate description to two lines initially
-            let truncatedDescription = element.description.split('\n').slice(0, 2).join('\n');
-            let fullDescription = element.description;
+            let truncatedDescription = element.description.split('\n').slice(0, 1).join('\n');
+            let reminingDescriptions = element.description.split('\n').slice(1,).join('\n');
 
             html +=
                 `<div>
@@ -119,7 +118,7 @@ function showData() {
         <ul class='list-group list-group-flush'>
         <li class='list-group-item'><strong>Product -</strong>  ${element.name}  </li>
         <li class='list-group-item'><strong>category -</strong>  ${element.category}  </li>
-        <li class='list-group-item h-25'><strong>Description -</strong>  ${truncatedDescription}  <span class="more" style="display: none">${fullDescription}</span> <button class="btn btn-link view-more">View More</button></li>
+        <li class='list-group-item h-25'><strong>Description -</strong>  ${truncatedDescription}  <span class="more" style="display: none">${reminingDescriptions}</span> <button class="btn btn-link view-more">View More</button></li>
         <li class='list-group-item'>Price -</strong>  ₹ ${element.price}</li>
         </ul>
         <div class='card-body text-center'>
@@ -164,7 +163,7 @@ function AddData() {
         let image = document.getElementById("inputGroupFile01");
         let reader = new FileReader();
 
-        let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
+        // let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
 
         // generate new ID by incrementing the highest existing ID
         let id = 1;
@@ -199,7 +198,7 @@ function AddData() {
 
 //delete data
 function deleteData(id) {
-    let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
+    // let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
     const index = productList.findIndex(product => product.id == id)
     console.log("index " +index);
 
@@ -215,7 +214,7 @@ function deleteData(id) {
 //edit data
 function editData(id) {
     
-    let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
+    // let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
 
     console.log(id)
     const index = productList.findIndex(product => product.id == id)
@@ -314,8 +313,8 @@ function searchProduct(sortedItem) {
     } else {
         sortedItem.forEach(function (element) {
             // Truncate description to two lines initially
-            let truncatedDescription = element.description.split('\n').slice(0, 2).join('\n');
-            let fullDescription = element.description;
+            let truncatedDescription = element.description.split('\n').slice(0, 1).join('\n');
+            let reminingDescriptions = element.description.split('\n').slice(1,).join('\n');
 
             html +=
                 `<div>
@@ -330,7 +329,7 @@ function searchProduct(sortedItem) {
         <ul class='list-group list-group-flush'>
         <li class='list-group-item'><strong>Product -</strong>  ${element.name}  </li>
         <li class='list-group-item'><strong>category -</strong>  ${element.category}  </li>
-        <li class='list-group-item h-25'><strong>Description -</strong>  ${truncatedDescription}  <span class="more" style="display: none">${fullDescription}</span> <button class="btn btn-link view-more">View More</button></li>
+        <li class='list-group-item h-25'><strong>Description -</strong>  ${truncatedDescription}  <span class="more" style="display: none">${reminingDescriptions}</span> <button class="btn btn-link view-more">View More</button></li>
         <li class='list-group-item'>Price -</strong>  ₹ ${element.price}</li>
         </ul>
         <div class='card-body text-center'>
@@ -346,6 +345,20 @@ function searchProduct(sortedItem) {
     }
     document.querySelector("#curd-table").classList.add("d-none");
     document.querySelector("#sort-table").innerHTML = html;
+
+    // Add event listeners for "View More" buttons
+    document.querySelectorAll('.view-more').forEach(button => {
+        button.addEventListener('click', () => {
+            let descriptionSpan = button.parentNode.querySelector('.more');
+            if (descriptionSpan.style.display === 'none') {
+                descriptionSpan.style.display = 'inline';
+                button.innerText = 'View Less';
+            } else {
+                descriptionSpan.style.display = 'none';
+                button.innerText = 'View More';
+            }
+        });
+    });
 }
 
 
@@ -423,8 +436,8 @@ function filteredData(sortedProduct) {
     } else {
         sortedProduct.forEach(function (element) {
             // Truncate description to two lines initially
-            let truncatedDescription = element.description.split('\n').slice(0, 2).join('\n');
-            let fullDescription = element.description;
+            let truncatedDescription = element.description.split('\n').slice(0, 1).join('\n');
+            let reminingDescriptions = element.description.split('\n').slice(1,).join('\n');
 
             html +=
                 `<div>
@@ -439,7 +452,7 @@ function filteredData(sortedProduct) {
         <ul class='list-group list-group-flush'>
         <li class='list-group-item'><strong>Product -</strong>  ${element.name}  </li>
         <li class='list-group-item'><strong>category -</strong>  ${element.category}  </li>
-        <li class='list-group-item h-25'><strong>Description -</strong>  ${truncatedDescription}  <span class="more" style="display: none">${fullDescription}</span> <button class="btn btn-link view-more">View More</button></li>
+        <li class='list-group-item h-25'><strong>Description -</strong>  ${truncatedDescription}  <span class="more" style="display: none">${reminingDescriptions}</span> <button class="btn btn-link view-more">View More</button></li>
         <li class='list-group-item'>Price -</strong>  ₹ ${element.price}</li>
         </ul>
         <div class='card-body text-center'>
@@ -455,4 +468,17 @@ function filteredData(sortedProduct) {
     }
     document.querySelector("#curd-table").classList.add("d-none");
     document.querySelector("#sort-table").innerHTML = html;
+    // Add event listeners for "View More" buttons
+    document.querySelectorAll('.view-more').forEach(button => {
+        button.addEventListener('click', () => {
+            let descriptionSpan = button.parentNode.querySelector('.more');
+            if (descriptionSpan.style.display === 'none') {
+                descriptionSpan.style.display = 'inline';
+                button.innerText = 'View Less';
+            } else {
+                descriptionSpan.style.display = 'none';
+                button.innerText = 'View More';
+            }
+        });
+    });
 }

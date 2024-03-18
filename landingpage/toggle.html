@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>View More/View Less Example</title>
+<style>
+  /* Style for the toggle button */
+  .toggle-button {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<!-- Content to be toggled -->
+<div id="content">
+  <p>This is the content you want to show initially .</p>
+  <p>It can be as long as you want...</p>
+  <p>More content...</p>
+  <p>Even more content...</p>
+</div>
+
+<!-- Toggle button -->
+<p class="toggle-button" id="toggleButton" onclick="toggleContent()">View more</p>
+
+<script>
+function toggleContent() {
+  var content = document.getElementById("content");
+  var button = document.getElementById("toggleButton");
+
+  if (content.style.display === "none") {
+    content.style.display = "block";
+    button.textContent = "Viewless ";
+  } else {
+    content.style.display = "none";
+    button.textContent = "View more";
+  }
+}
+</script>
+
+</body>
+</html>
