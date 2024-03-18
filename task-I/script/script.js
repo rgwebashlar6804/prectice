@@ -1,3 +1,4 @@
+
 function validateForm() {
     // Get references to the form elements
     let nameInput = document.getElementById("name");
@@ -73,8 +74,8 @@ function validateForm() {
 
     // Check the file size of the uploaded image
     let fileSize = image.files[0].size / 1024; // in KB
-    if (fileSize > 750) {
-        document.getElementById("image-error-msg").innerHTML = " Please attach an image that is smaller than 750KB";
+    if (fileSize > 1024) {
+        document.getElementById("image-error-msg").innerHTML = " Please attach an image that is smaller than 1024KB";
         image.value = "";
         return false;
     }
@@ -85,12 +86,7 @@ function validateForm() {
 }
 //show data
 function showData() {
-    let productList;
-    if (localStorage.getItem("productList") == null) {
-        productList = [];
-    } else {
-        productList = JSON.parse(localStorage.getItem("productList"));
-    }
+    let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
     let html = "";
     if (productList.length === 0) {
         // Display an image if the productList array is empty
@@ -104,7 +100,7 @@ function showData() {
         </div>
       </div>`;
     } else {
-        productList.forEach(function (element, index) {
+        productList.forEach(function (element) {
             // Truncate description to two lines initially
             let truncatedDescription = element.description.split('\n').slice(0, 2).join('\n');
             let fullDescription = element.description;
@@ -126,8 +122,8 @@ function showData() {
         <li class='list-group-item'>Price -</strong>  ₹ ${element.price}</li>
         </ul>
         <div class='card-body text-center'>
-         <button onclick='editData("${index}")' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal-2' class='btn btn-success' style="width: 49%">Edit</button>
-         <button onclick='deleteData("${index}")' type='button' class='btn btn-danger' style="width: 49%">Delete</button>
+         <button onclick='editData("${element.id}")' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal-2' class='btn btn-success' style="width: 49%">Edit</button>
+         <button onclick='deleteData("${element.id}")' type='button' class='btn btn-danger' style="width: 49%">Delete</button>
         </div>
         </div>
         </div>
@@ -167,12 +163,7 @@ function AddData() {
         let image = document.getElementById("inputGroupFile01");
         let reader = new FileReader();
 
-        let productList;
-        if (localStorage.getItem("productList") == null) {
-            productList = [];
-        } else {
-            productList = JSON.parse(localStorage.getItem("productList"));
-        }
+        let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
 
         // generate new ID by incrementing the highest existing ID
         let id = 1;
@@ -206,13 +197,10 @@ function AddData() {
 }
 
 //delete data
-function deleteData(index) {
-    let productList;
-    if (localStorage.getItem("productList") == null) {
-        productList = [];
-    } else {
-        productList = JSON.parse(localStorage.getItem("productList"));
-    }
+function deleteData(id) {
+    let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
+    const index = productList.findIndex(product => product.id == id)
+    console.log("index " +index);
 
     // Display a confirmation message to the user
     if (confirm("Are you sure you want to delete this item?")) {
@@ -224,13 +212,13 @@ function deleteData(index) {
 }
 
 //edit data
-function editData(index) {
-    let productList;
-    if (localStorage.getItem("productList") == null) {
-        productList = [];
-    } else {
-        productList = JSON.parse(localStorage.getItem("productList"));
-    }
+function editData(id) {
+    
+    let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
+
+    console.log(id)
+    const index = productList.findIndex(product => product.id == id)
+    console.log("index " +index);
 
     document.getElementById("id-edit").value = productList[index].id;
     document.getElementById("name-edit").value = productList[index].name;
@@ -290,6 +278,21 @@ function searchBar() {
     console.log(sortedItem);
     searchProduct(sortedItem);
 }
+function searchBar1() {
+    let searchvalue = document.querySelector("#serachProductcategory").value;
+    console.log(searchvalue);
+    let sortedItem = [];
+    let sortedProduct = JSON.parse(localStorage.getItem("productList")) ?? [];
+    let regex = new RegExp(searchvalue, "i");
+    for (let element of sortedProduct) {
+        let item = element;
+        if (regex.test(item.category)) {
+            sortedItem.push(element);
+        }
+    }
+    console.log(sortedItem);
+    searchProduct(sortedItem);
+}
 
 //search product
 function searchProduct(sortedItem) {
@@ -308,7 +311,7 @@ function searchProduct(sortedItem) {
         </div>
       </div>`;
     } else {
-        sortedItem.forEach(function (element, index) {
+        sortedItem.forEach(function (element) {
             // Truncate description to two lines initially
             let truncatedDescription = element.description.split('\n').slice(0, 2).join('\n');
             let fullDescription = element.description;
@@ -330,8 +333,8 @@ function searchProduct(sortedItem) {
         <li class='list-group-item'>Price -</strong>  ₹ ${element.price}</li>
         </ul>
         <div class='card-body text-center'>
-         <button onclick='editData("${index}")' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal-2' class='btn btn-success' style="width: 49%">Edit</button>
-         <button onclick='deleteData("${index}")' type='button' class='btn btn-danger' style="width: 49%">Delete</button>
+         <button onclick='editData("${element.id}")' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal-2' class='btn btn-success' style="width: 49%">Edit</button>
+         <button onclick='deleteData("${element.id}")' type='button' class='btn btn-danger' style="width: 49%">Delete</button>
         </div>
         </div>
         </div>
@@ -377,12 +380,22 @@ function filterProduct(sortvalue) {
         console.log("Asc", sortedProduct);
         return filteredData(sortedProduct);
     } else if (sortvalue == "name") {
-        sortedProduct = sortedProduct = sortedProduct.sort((a, b) =>
+        sortedProduct = sortedProduct.sort((a, b) =>
             a.name.localeCompare(b.name)
         );
         console.log("name", sortedProduct);
         return filteredData(sortedProduct);
-    } else if (sortvalue == "price") {
+    } else if (sortvalue == "category") {
+        sortedProduct = sortedProduct.sort((a, b) =>
+            a.category.localeCompare(b.category)
+        );
+        console.log("category", sortedProduct);
+        return filteredData(sortedProduct);
+    }else if (sortvalue == "price-desc") {
+        sortedProduct = sortedProduct.sort((a, b) => a.price - b.price);
+        console.log("Price", sortedProduct);
+        return filteredData(sortedProduct);
+    }else if (sortvalue == "price") {
         sortedProduct = sortedProduct.sort((a, b) => b.price - a.price);
         console.log("Price", sortedProduct);
         return filteredData(sortedProduct);
@@ -407,7 +420,7 @@ function filteredData(sortedProduct) {
         </div>
       </div>`;
     } else {
-        sortedProduct.forEach(function (element, index) {
+        sortedProduct.forEach(function (element) {
             // Truncate description to two lines initially
             let truncatedDescription = element.description.split('\n').slice(0, 2).join('\n');
             let fullDescription = element.description;
@@ -429,8 +442,8 @@ function filteredData(sortedProduct) {
         <li class='list-group-item'>Price -</strong>  ₹ ${element.price}</li>
         </ul>
         <div class='card-body text-center'>
-         <button onclick='editData("${index}")' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal-2' class='btn btn-success' style="width: 49%">Edit</button>
-         <button onclick='deleteData("${index}")' type='button' class='btn btn-danger' style="width: 49%">Delete</button>
+         <button onclick='editData("${element.id}")' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal-2' class='btn btn-success' style="width: 49%">Edit</button>
+         <button onclick='deleteData("${element.id}")' type='button' class='btn btn-danger' style="width: 49%">Delete</button>
         </div>
         </div>
         </div>

@@ -22,8 +22,13 @@
     <nav class="navbar nav-bar sticky-top nav-dark bg-dark">
       <div class="container-fluid">
         <form class="d-flex col-sm-4 input-group w-auto">
-          <input type="search" class="search-bar form-control" placeholder="Search" aria-label="Search"
+          <input type="search" class="search-bar form-control" placeholder="Search by Name" aria-label="Search"
             aria-describedby="search-addon" id="serachProductText" oninput="searchBar()" />
+          <!-- <button type="button" class="btn btn-outline-success disabled"><i class='bx bx-search-alt-2' ></i></button> -->
+        </form>
+        <form class="d-flex col-sm-4 input-group w-auto">
+          <input type="search" class="search-bar form-control" placeholder="Search by category" aria-label="Search"
+            aria-describedby="search-addon" id="serachProductcategory" oninput="searchBar1()" />
           <!-- <button type="button" class="btn btn-outline-success disabled"><i class='bx bx-search-alt-2' ></i></button> -->
         </form>
         <a class="navbar-brand d-flex justify-content-between">
@@ -35,9 +40,11 @@
             <option value="refresh-btn">Restore-sort</option>
             <option selected disabled>-----Sort-By-----</option>
             <option value="asc">id</option>
+            <option value="desc">id desc</option>
             <option value="name">name</option>
             <option value="category">category</option>
-            <option value="price">price</option>
+            <option value="price">price high to low</option>
+            <option value="price-desc">price low to high</option>
           </select>
         </a>
       </div>
@@ -105,32 +112,32 @@
             <form>
               <div class="form-group">
                 <div id="image-div"></div>
-                <label for="exampleFormControlInput1">Product Id -</label>
+                <label for="id-edit">Product Id -</label>
                 <input type="text" class="form-control" id="id-edit" aria-label="Sizing example input"
                   aria-describedby="inputGroup-sizing-default" disabled>
               </div>
               <div class="form-group mt-2">
-                <label for="exampleFormControlSelect1">Name -</label>
+                <label for="name-edit">Name -</label>
                 <input type="text" class="form-control" id="name-edit" placeholder="Enter Product name"
                   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
               </div>
               <div class="form-group mt-2">
-                <label for="exampleFormControlSelect1">category -</label>
+                <label for="category-edit">category -</label>
                 <input type="text" class="form-control" id="category-edit" placeholder="Enter Product category"
                   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
               </div>
               <div class="form-group mt-2">
-                <label for="exampleFormControlSelect1">Price -</label>
+                <label for="price-edit">Price -</label>
                 <input type="text" class="form-control" id="price-edit" placeholder="Enter Product Price"
                   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
               </div>
               <div class="form-group mt-2">
-                <label for="exampleFormControlTextarea1">Description -</label>
+                <label for="description-edit">Description -</label>
                 <textarea class="form-control h-25" id="description-edit" placeholder="Enter Description of Product"
                   rows="3"></textarea>
               </div>
               <div class="form-group mt-2">
-                <label for="exampleFormControlSelect1">Product - Image -</label>
+                <label for="image-edit">Product - Image -</label>
                 <input type="file" class="form-control" id="image-edit">
               </div>
             </form>
