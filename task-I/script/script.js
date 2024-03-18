@@ -399,6 +399,12 @@ function filterProduct(sortvalue) {
         );
         console.log("name", sortedProduct);
         return filteredData(sortedProduct);
+    } else if (sortvalue == "name-desc") {
+        sortedProduct = sortedProduct.sort((a, b) =>
+            b.name.localeCompare(a.name)
+        );
+        console.log("name", sortedProduct);
+        return filteredData(sortedProduct);
     } else if (sortvalue == "category") {
         sortedProduct = sortedProduct.sort((a, b) =>
             a.category.localeCompare(b.category)
