@@ -78,6 +78,7 @@ function validateForm() {
         document.getElementById("image-error-msg").innerHTML = " Please attach an image that is smaller than 1024KB";
         image.value = "";
         return false;
+        //comment
     }
     else {
         document.getElementById("image-error-msg").innerHTML = "";
