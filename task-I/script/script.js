@@ -4,6 +4,7 @@ function validateForm() {
     let nameInput = document.getElementById("name");
     let categoryInput = document.getElementById("category");
     let priceInput = document.getElementById("price");
+    let colorInput = document.getElementById("color");
     let descriptionInput = document.getElementById("description");
     let image = document.getElementById("inputGroupFile01");
 
@@ -11,6 +12,7 @@ function validateForm() {
     let name = nameInput.value.trim();
     let category = categoryInput.value.trim();
     let price = priceInput.value.trim();
+    let color = colorInput.value.trim();
 
     // Validate name input
     if (name === "") {
@@ -34,6 +36,7 @@ function validateForm() {
         document.getElementById("price-error-msg").innerHTML = "";
     }
 
+
     if (isNaN(price) || price.startsWith("0")) {
         document.getElementById("price-error-msg").innerHTML = " Please enter a valid price number that not start with zero";
         return false;
@@ -42,9 +45,16 @@ function validateForm() {
         document.getElementById("price-error-msg").innerHTML = "";
     }
 
+    if (color === "") {
+        document.getElementById("color-error-msg").innerHTML = " Please enter your color";
+        return false;
+    } else {
+        document.getElementById("color-error-msg").innerHTML = "";
+    }
+
 
     // Validate description input
-    if (descriptionInput.value.length > 100) {
+    if (descriptionInput.value.length > 10000) {
         document.getElementById("disc-error-msg").innerHTML = " Description can be maximum 50 characters";
         return false;
     } else if (descriptionInput.value == "") {
@@ -119,7 +129,8 @@ function showData() {
         <li class='list-group-item'><strong>Product -</strong>  ${element.name}  </li>
         <li class='list-group-item'><strong>category -</strong>  ${element.category}  </li>
         <li class='list-group-item h-25'><strong>Description -</strong>  ${truncatedDescription}  <span class="more" style="display: none">${reminingDescriptions}</span> <button class="btn btn-link view-more">View More</button></li>
-        <li class='list-group-item'>Price -</strong>  ₹ ${element.price}</li>
+        <li class='list-group-item'><strong>Price -</strong>  ₹ ${element.price}</li>
+        <li class='list-group-item'><strong>Color -</strong>   ${element.color}</li>
         </ul>
         <div class='card-body text-center'>
          <button onclick='editData("${element.id}")' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal-2' class='btn btn-success' style="width: 49%">Edit</button>
@@ -159,6 +170,7 @@ function AddData() {
         let name = document.getElementById("name").value;
         let category = document.getElementById("category").value;
         let price = document.getElementById("price").value;
+        let color = document.getElementById("color").value;
         let description = document.getElementById("description").value;
         let image = document.getElementById("inputGroupFile01");
         let reader = new FileReader();
@@ -179,6 +191,7 @@ function AddData() {
                 category: category,
                 description: description,
                 price: price,
+                color: color,
                 image: reader.result,
             });
             localStorage.setItem("productList", JSON.stringify(productList));
@@ -189,6 +202,7 @@ function AddData() {
         document.getElementById("name").value = "";
         document.getElementById("category").value = "";
         document.getElementById("price").value = "";
+        document.getElementById("color").value = "";
         document.getElementById("description").value = "";
         document.getElementById("inputGroupFile01").value = "";
         document.getElementById("close-btn").click();
@@ -200,7 +214,7 @@ function AddData() {
 function deleteData(id) {
     // let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
     const index = productList.findIndex(product => product.id == id)
-    console.log("index " +index);
+    console.log("index " + index);
 
     // Display a confirmation message to the user
     if (confirm("Are you sure you want to delete this item?")) {
@@ -213,17 +227,18 @@ function deleteData(id) {
 
 //edit data
 function editData(id) {
-    
+
     // let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
 
     console.log(id)
     const index = productList.findIndex(product => product.id == id)
-    console.log("index " +index);
+    console.log("index " + index);
 
     document.getElementById("id-edit").value = productList[index].id;
     document.getElementById("name-edit").value = productList[index].name;
     document.getElementById("category-edit").value = productList[index].category;
     document.getElementById("price-edit").value = productList[index].price;
+    document.getElementById("color-edit").value = productList[index].color;
     document.getElementById("description-edit").value = productList[index].description;
 
     let imagePreview = document.getElementById("image-div");
@@ -247,6 +262,7 @@ function editData(id) {
         productList[index].name = document.getElementById("name-edit").value;
         productList[index].category = document.getElementById("category-edit").value;
         productList[index].price = document.getElementById("price-edit").value;
+        productList[index].color = document.getElementById("color-edit").value;
         productList[index].description = document.getElementById("description-edit").value;
         localStorage.setItem("productList", JSON.stringify(productList));
         location.reload();
@@ -256,6 +272,7 @@ function editData(id) {
         document.getElementById("name-edit").value = "";
         document.getElementById("category-edit").value = "";
         document.getElementById("price-edit").value = "";
+        document.getElementById("color-edit").value = "";
         document.getElementById("description-edit").value = "";
         document.getElementById("close-btn").click();
         alert("Data Updated Successfully");
@@ -330,7 +347,8 @@ function searchProduct(sortedItem) {
         <li class='list-group-item'><strong>Product -</strong>  ${element.name}  </li>
         <li class='list-group-item'><strong>category -</strong>  ${element.category}  </li>
         <li class='list-group-item h-25'><strong>Description -</strong>  ${truncatedDescription}  <span class="more" style="display: none">${reminingDescriptions}</span> <button class="btn btn-link view-more">View More</button></li>
-        <li class='list-group-item'>Price -</strong>  ₹ ${element.price}</li>
+        <li class='list-group-item'><strong>Price -</strong>  ₹ ${element.price}</li>
+        <li class='list-group-item'><strong>Color -</strong>   ${element.color}</li>
         </ul>
         <div class='card-body text-center'>
          <button onclick='editData("${element.id}")' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal-2' class='btn btn-success' style="width: 49%">Edit</button>
@@ -405,17 +423,31 @@ function filterProduct(sortvalue) {
         );
         console.log("name", sortedProduct);
         return filteredData(sortedProduct);
-    } else if (sortvalue == "category") {
+    } 
+    else if (sortvalue == "color") {
+        sortedProduct = sortedProduct.sort((a, b) =>
+            a.color.localeCompare(b.color)
+        );
+        console.log("color", sortedProduct);
+        return filteredData(sortedProduct);
+    } else if (sortvalue == "color-desc") {
+        sortedProduct = sortedProduct.sort((a, b) =>
+            b.color.localeCompare(a.color)
+        );
+        console.log("color", sortedProduct);
+        return filteredData(sortedProduct);
+    } 
+    else if (sortvalue == "category") {
         sortedProduct = sortedProduct.sort((a, b) =>
             a.category.localeCompare(b.category)
         );
         console.log("category", sortedProduct);
         return filteredData(sortedProduct);
-    }else if (sortvalue == "price-desc") {
+    } else if (sortvalue == "price-desc") {
         sortedProduct = sortedProduct.sort((a, b) => a.price - b.price);
         console.log("Price", sortedProduct);
         return filteredData(sortedProduct);
-    }else if (sortvalue == "price") {
+    } else if (sortvalue == "price") {
         sortedProduct = sortedProduct.sort((a, b) => b.price - a.price);
         console.log("Price", sortedProduct);
         return filteredData(sortedProduct);
@@ -459,7 +491,8 @@ function filteredData(sortedProduct) {
         <li class='list-group-item'><strong>Product -</strong>  ${element.name}  </li>
         <li class='list-group-item'><strong>category -</strong>  ${element.category}  </li>
         <li class='list-group-item h-25'><strong>Description -</strong>  ${truncatedDescription}  <span class="more" style="display: none">${reminingDescriptions}</span> <button class="btn btn-link view-more">View More</button></li>
-        <li class='list-group-item'>Price -</strong>  ₹ ${element.price}</li>
+        <li class='list-group-item'><strong> Price -</strong>  ₹ ${element.price}</li>
+        <li class='list-group-item'><strong> Color -</strong>  ${element.color}</li>
         </ul>
         <div class='card-body text-center'>
          <button onclick='editData("${element.id}")' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal-2' class='btn btn-success' style="width: 49%">Edit</button>
