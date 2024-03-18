@@ -123,7 +123,7 @@ function showData() {
         <li class='list-group-item'><strong>Product -</strong>  ${element.name}  </li>
         <li class='list-group-item'><strong>category -</strong>  ${element.category}  </li>
         <li class='list-group-item h-25'><strong>Description -</strong>  ${truncatedDescription}  <span class="more" style="display: none">${fullDescription}</span> <button class="btn btn-link view-more">View More</button></li>
-        <li class='list-group-item'>Price -</strong>  $${element.price}</li>
+        <li class='list-group-item'>Price -</strong>  ₹ ${element.price}</li>
         </ul>
         <div class='card-body text-center'>
          <button onclick='editData("${index}")' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal-2' class='btn btn-success' style="width: 49%">Edit</button>
@@ -327,7 +327,7 @@ function searchProduct(sortedItem) {
         <li class='list-group-item'><strong>Product -</strong>  ${element.name}  </li>
         <li class='list-group-item'><strong>category -</strong>  ${element.category}  </li>
         <li class='list-group-item h-25'><strong>Description -</strong>  ${truncatedDescription}  <span class="more" style="display: none">${fullDescription}</span> <button class="btn btn-link view-more">View More</button></li>
-        <li class='list-group-item'>Price -</strong>  $${element.price}</li>
+        <li class='list-group-item'>Price -</strong>  ₹ ${element.price}</li>
         </ul>
         <div class='card-body text-center'>
          <button onclick='editData("${index}")' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal-2' class='btn btn-success' style="width: 49%">Edit</button>
@@ -359,12 +359,7 @@ function filterProduct(sortvalue) {
     let productList = JSON.parse(localStorage.getItem("productList")) ?? [];
     sortedProduct = productList;
     localStorage.setItem("sortedProduct", JSON.stringify(sortedProduct));
-
-    /**
-     * @description This code block is a conditional statement that checks 
-     *              the value of the sortvalue parameter to determine the 
-     *              sorting criteria to be used for the product list.
-     */
+    //filter Description    
     if (sortvalue == "desc") {
         let desc = true;
         sortedProduct = sortedProduct.sort((a, b) =>
@@ -413,8 +408,12 @@ function filteredData(sortedProduct) {
       </div>`;
     } else {
         sortedProduct.forEach(function (element, index) {
-            // This Below HTML code is generate Card For Sorted Items.
-            html += `<div>
+            // Truncate description to two lines initially
+            let truncatedDescription = element.description.split('\n').slice(0, 2).join('\n');
+            let fullDescription = element.description;
+
+            html +=
+                `<div>
         <div class='row gx-2'>
         <div class='col'>
         <div class='p-3'>
@@ -425,9 +424,9 @@ function filteredData(sortedProduct) {
         </div>
         <ul class='list-group list-group-flush'>
         <li class='list-group-item'><strong>Product -</strong>  ${element.name}  </li>
-        <li class='list-group-item'><strong>Categoty -</strong>  ${element.category}  </li>
-        <li class='list-group-item h-25'><strong>Description -</strong>  ${element.description}  </li>
-        <li class='list-group-item'>Price -</strong>  $${element.price}</li>
+        <li class='list-group-item'><strong>category -</strong>  ${element.category}  </li>
+        <li class='list-group-item h-25'><strong>Description -</strong>  ${truncatedDescription}  <span class="more" style="display: none">${fullDescription}</span> <button class="btn btn-link view-more">View More</button></li>
+        <li class='list-group-item'>Price -</strong>  ₹ ${element.price}</li>
         </ul>
         <div class='card-body text-center'>
          <button onclick='editData("${index}")' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal-2' class='btn btn-success' style="width: 49%">Edit</button>

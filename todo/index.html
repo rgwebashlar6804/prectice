@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todo</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="textinput" placeholder="Add a new Task">
+        <button onclick="addTask()">Submit</button>
+    </div>
+    <ul id="taskList"></ul>
+    <script>
+        const taskInput = document.getElementById('textinput');
+        const taskList = document.getElementById('taskList')
+        // console.log(taskList)
+
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || [] ;
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            if(taskText === ""){
+                return;
+            }
+            const task = {text: taskText};
+            tasks.push(task);
+
+            localStorage.setItem("tasks",JSON.stringify(tasks));
+            taskInput.value = "";
+
+            displayTask();
+        }
+        let displayTask = () => {
+            taskList.innerHTML = "";
+            tasks.forEach((e,index)=>{
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <span>${e.text}</span>
+                    <hr>
+                    <button class="edit-button" onclick="editTask(${index})">Edit</button>
+                    <button class="delete-button" onclick="deleteTask(${index})">Delete</button>
+                `;
+                taskList.appendChild(li);
+            });
+        }
+        let deleteTask = (index) => {
+            tasks.splice(index,1);
+            localStorage.setItem('tasks',JSON.stringify(tasks));
+            displayTask();
+        }
+        let editTask = (index) => {
+            const newTaskText = prompt("Edit the Task :",tasks[index].text);
+
+            if(newTaskText !== null){
+                tasks[index].text == newTaskText
+                localStorage.setItem('tasks',JSON.stringify(tasks));
+                displayTask();
+            }
+        }
+    </script>
+</body>
+</html>
