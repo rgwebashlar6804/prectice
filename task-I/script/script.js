@@ -122,7 +122,7 @@ function showData() {
         <div class='p-3'>
         <div class='card d-flex card-all'>
         <div class='card-body'style=" height: 11rem; width: 16rem;">
-        <h5 class='card-title text-center'><strong>Item No.-</strong> ${element.id} </h5>
+        <h5 class='card-title text-center'><strong>Product Id.-</strong> ${element.id} </h5>
         <img src="${element.image}" class="card-img-top" alt='Image' style=" height: 7rem; width: 14rem;">
         </div>
         <ul class='list-group list-group-flush'>
@@ -311,6 +311,22 @@ function searchBar1() {
     searchProduct(sortedItem);
 }
 
+function searchBar2() {
+    let searchvalue = document.querySelector("#serachProductcolor").value;
+    console.log(searchvalue);
+    let sortedItem = [];
+    let sortedProduct = JSON.parse(localStorage.getItem("productList")) ?? [];
+    let regex = new RegExp(searchvalue, "i");
+    for (let element of sortedProduct) {
+        let item = element;
+        if (regex.test(item.color)) {
+            sortedItem.push(element);
+        }
+    }
+    console.log(sortedItem);
+    searchProduct(sortedItem);
+}
+
 //search product
 function searchProduct(sortedItem) {
     let html = "";
@@ -340,7 +356,7 @@ function searchProduct(sortedItem) {
         <div class='p-3'>
         <div class='card d-flex card-all'>
         <div class='card-body'style=" height: 11rem; width: 16rem;">
-        <h5 class='card-title text-center'><strong>Item No.-</strong> ${element.id} </h5>
+        <h5 class='card-title text-center'><strong>Product Id.-</strong> ${element.id} </h5>
         <img src="${element.image}" class="card-img-top" alt='Image' style=" height: 7rem; width: 14rem;">
         </div>
         <ul class='list-group list-group-flush'>
@@ -484,7 +500,7 @@ function filteredData(sortedProduct) {
         <div class='p-3'>
         <div class='card d-flex card-all'>
         <div class='card-body'style=" height: 11rem; width: 16rem;">
-        <h5 class='card-title text-center'><strong>Item No.-</strong> ${element.id} </h5>
+        <h5 class='card-title text-center'><strong>Product Id.-</strong> ${element.id} </h5>
         <img src="${element.image}" class="card-img-top" alt='Image' style=" height: 7rem; width: 14rem;">
         </div>
         <ul class='list-group list-group-flush'>
