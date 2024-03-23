@@ -12,9 +12,13 @@ body {
   .card {
     background-color: #fff;
     border: none;
-    width: 17rem;
+    width: 30rem;
     border-radius: 5px;
     justify-content: space-evenly;
+  }
+  .card .description{
+    /* color: #039BE5; */
+    overflow-y: scroll;
   }
   
   @media(max-width:1024px)
@@ -94,7 +98,8 @@ body {
     text-align: top;
     height: 7rem;
     border: 2px solid #eee;
-    border-radius: 5px
+    border-radius: 5px;
+
   }
   
   .form-control:focus {
@@ -127,9 +132,12 @@ body {
     color: white;
   }
   
-  .img-fluid{
+  .img- {
     width: 30rem;
     margin-left: auto;
     margin-right: auto;
   } 
   
+  .btn-add{
+    float: right;
+  }

@@ -3,12 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Image Uploader</title>
+<title>Product Filtering</title>
 </head>
 <body>
-  <input type="file" id="imageInput" accept="image/*" multiple>
-  <div id="imagePreview"></div>
 
-  <script src="script.js"></script>
+<h2>Filter Products</h2>
+
+<div>
+  <label>
+    <input type="checkbox" name="category" value="category1" onchange="filterProducts()">
+    Category 1
+  </label>
+  <label>
+    <input type="checkbox" name="category" value="category2" onchange="filterProducts()">
+    Category 2
+  </label>
+  <label>
+    <input type="checkbox" name="category" value="category3" onchange="filterProducts()">
+    Category 3
+  </label>
+</div>
+
+<div id="products">
+  <!-- Product list will be displayed here -->
+</div>
+
+<script>
+  // Sample product data
+  const products = [
+    { name: "Product 1", category: "category1" },
+    { name: "Product 2", category: "category2" },
+    { name: "Product 3", category: "category1" },
+    { name: "Product 4", category: "category3" },
+  ];
+
+  // Function to filter products based on selected checkboxes
+  // Function to filter products based on selected checkboxes
+function filterProducts() {
+    const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(checkbox => checkbox.value);
+    if (selectedCategories.length === 0) {
+        // If no checkboxes are checked, display all products
+        displayProducts(products);
+    } else {
+        // Filter products based on selected checkboxes
+        const filteredProducts = products.filter(product => selectedCategories.includes(product.category));
+        displayProducts(filteredProducts);
+    }
+}
+
+
+  // Function to display filtered products
+  function displayProducts(products) {
+    const productsContainer = document.getElementById("products");
+    productsContainer.innerHTML = "";
+    products.forEach(product => {
+      const productDiv = document.createElement("div");
+      productDiv.textContent = product.name;
+      productsContainer.appendChild(productDiv);
+    });
+  }
+
+  // Initially display all products
+  displayProducts(products);
+</script>
+
 </body>
 </html>
