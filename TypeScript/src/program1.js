@@ -139,5 +139,20 @@
 //     name: 'ABC',
 //     manager,
 // }
-let Order;
-console.log(Person);
+// let Order :string[];
+// type Person = 
+// {
+//     id: number,
+//     name: string,
+//     yearOfBirth: number,
+//     favouriteMovies?: string[], 
+//     orders?: Order[]
+// }
+// console.log(Person);
+// let var1: unknown = 4;
+// console.log((var1 as string).length);
+let colors = "‘green’";
+let l = colors.length;
+console.log('====================================');
+console.log(l);
+console.log('====================================');

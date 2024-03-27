@@ -180,15 +180,23 @@
 //     manager,
 // }
 
-let Order :string[];
+// let Order :string[];
 
-type Person = 
-{
-    id: number,
-    name: string,
-    yearOfBirth: number,
-    favouriteMovies?: string[], 
-    orders?: Order[]
-}
-console.log(Person);
+// type Person = 
+// {
+//     id: number,
+//     name: string,
+//     yearOfBirth: number,
+//     favouriteMovies?: string[], 
+//     orders?: Order[]
+// }
+// console.log(Person);
 
+// let var1: unknown = 4;
+// console.log((var1 as string).length);
+
+let colors: string = "‘green’";
+let l: number = (<string> colors).length;
+console.log('====================================');
+console.log(l);
+console.log('====================================');

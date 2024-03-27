@@ -1,4 +1,6 @@
-
+console.log('====================================');
+console.log(document.querySelector("#sort-table"));
+console.log('====================================');
 // let productList = localStorage.getItem("productList") ? null : [];
 let productList = localStorage.getItem("productList") ? JSON.parse(localStorage.getItem("productList")) : [];
 function validateForm() {
@@ -100,11 +102,8 @@ function validateForm() {
 function showData() {
     cart(productList);
 }
-
-
 // Load all data when document or page load
 showData();
-
 
 //clear form
 function clearForm() {
@@ -118,7 +117,6 @@ function clearForm() {
     });
 }
 clearForm();
-
 
 //add data
 function AddData() {
@@ -282,7 +280,6 @@ function editData(id) {
     };
 }
 
-
 //searchbar
 function searchBar() {
     let searchvalue = document.querySelector("#serachProductText").value;
@@ -321,7 +318,6 @@ function commonSearchBar(searchvalue) {
 function searchProduct(sortedItem) {
     cart(sortedItem);
 }
-
 
 let selectElem = document.querySelector("#sort-select");
 selectElem.addEventListener("change", (event) => {
